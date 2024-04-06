@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { GiHearts } from "react-icons/gi";
+import ShowIngredients from './ShowIngredients';
 
 function SearchMeals({ term }) {
   const [meals, setMeals] = useState([]);
- 
+  const [showRecipe, setShowRecipe] = useState(false);
+  const toggleRecipe = () => {
+    setShowRecipe(!showRecipe);
+  };
 
   useEffect(() => {
     async function fetchMealsBySearch() {
@@ -33,7 +37,9 @@ function SearchMeals({ term }) {
             className="random-meal-thumb"
             src={meal.strMealThumb}
             alt={meal.strMeal}
+            onClick={toggleRecipe}
           />
+          {showRecipe && <ShowIngredients id={meal.idMeal} />}
           <div className="like-btn">
             <GiHearts />
           </div>
