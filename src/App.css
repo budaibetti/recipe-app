@@ -84,7 +84,7 @@ cursor: pointer;
 
  
 }
-.random-meals {
+.meals {
   
   background-color: rgba(246, 203, 255, 0.89);
   margin-bottom: 25px;
@@ -96,7 +96,7 @@ cursor: pointer;
  
 }
 
-.random-meal-name {
+.meal-name {
   font-size: 1.1rem;
   width: 60%;
   background-color: rgb(233, 203, 245);
@@ -111,8 +111,9 @@ cursor: pointer;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.random-meal-thumb {
+.meal-thumb {
   max-width: 60%;
+  max-height: 340px;
   height: auto;
   border-radius: 2px;
   box-shadow: 0 0 5px black;
@@ -131,4 +132,36 @@ cursor: pointer;
 
 .like-btn:hover {
   color: rgb(249, 68, 255);
+}
+
+.ingredients-title, .instructions-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background-color: rgb(233, 203, 245);
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px ;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  padding: 10px;
+  color: rgb(56, 37, 56);
+  background: rgb(231, 225, 225);
+  width: 50%;
+ 
+
+}
+
+.ingredients {
+  list-style: none;
+  font-size: 1.2rem;
+  color: rgb(56, 37, 56);
+  font-weight: 600;
+}
+
+.intstruction-details {
+  color: rgb(56, 37, 56);
+  padding: 45px;
+  text-align: justify;
+  font-weight: 600;
+  text-indent: 80px;
 }

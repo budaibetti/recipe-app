@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GiHearts } from "react-icons/gi";
 import ShowIngredients from './ShowIngredients';
+import RecipeToggleBTn from './RecipeToggleBTn';
 
 function SearchMeals({ term }) {
   const [meals, setMeals] = useState([]);
@@ -31,18 +32,25 @@ function SearchMeals({ term }) {
       <h2>Meals matching "{term}":</h2>
       <ul>
         {meals.map((meal, index) => (
-          <div className="random-meals" key={index}>
-          <h2 className="random-meal-name">{meal.strMeal}</h2>
+          <div className="meals" key={index}>
+          <h2 className="meal-name">{meal.strMeal}</h2>
           <img
-            className="random-meal-thumb"
+            className="meal-thumb"
             src={meal.strMealThumb}
             alt={meal.strMeal}
-            onClick={toggleRecipe}
           />
+          
           {showRecipe && <ShowIngredients id={meal.idMeal} />}
+          
           <div className="like-btn">
             <GiHearts />
+            
           </div>
+          <div>
+          <div>
+            <RecipeToggleBTn id={meal.idMeal}/>
+            </div>
+        </div>
         </div>
         ))}
       </ul>

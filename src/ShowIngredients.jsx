@@ -12,6 +12,11 @@ const ShowIngredients = ({ id }) => {
       );
       const respData = await resp.json();
       const meal = respData.meals[0];
+
+      if (!respData.meals || respData.meals.length === 0) {
+        console.error('No meals found for the provided id:', id);
+        return;
+      }
      
       const mealIngredients = [];
       for (let i = 1; i <= 20; i++) {
@@ -40,24 +45,23 @@ const ShowIngredients = ({ id }) => {
 }, [id]);
 
   return (
-    <div>
-     <h2>Recipe</h2> 
-     <h3>Ingredienst</h3>
+    <div className='ingredients-container'>
+     
+     <h2 className='ingredients-title'>Ingredients</h2>
      <ul>
       {recipes.map((recipe, index)=> (
-        <li key={index}>
+        <li className='ingredients' key={index}>
             <div>
+            <p className='ingredient-name'>{recipe.measure} {recipe.ingredient}</p>
               
-              {recipe.ingredient}
               </div>
-            <div>{recipe.measure}</div>
-            <div>{recipe.instructions}</div>
+           
 
           </li>
       ))}
      </ul>
-     <h2>Instructions</h2>
-      <p>{instructions}</p>
+     <h2 className='instructions-title'>Instructions</h2>
+      <p className='intstruction-details'>{instructions}</p>
       </div>
   )
 }

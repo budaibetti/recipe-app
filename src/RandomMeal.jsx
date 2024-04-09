@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { GiHearts } from "react-icons/gi";
 import ShowIngredients from "./ShowIngredients";
+import RecipeToggleBTn from "./RecipeToggleBTn";
 
 const RandomMeal = () => {
   const [randomMeals, setRandomMeals] = useState([]);
@@ -30,20 +31,22 @@ const RandomMeal = () => {
 
   return (
     <div>
-      <h1 className="recommend">Hungry? Let's stir up happiness!</h1>
+      <h1 className="recommend">Swipe, eat, love, repeat!</h1>
       <div className="random-meals-container">
         {randomMeals.map((meal, index) => (
-          <div className="random-meals" key={index}>
-            <h2 className="random-meal-name">{meal.strMeal}</h2>
+          <div className="meals" key={index}>
+            <h2 className="meal-name">{meal.strMeal}</h2>
             <img
-              className="random-meal-thumb"
+              className="meal-thumb"
               src={meal.strMealThumb}
               alt={meal.strMeal}
-              onClick={toggleRecipe}
             />
             {showRecipe && <ShowIngredients id={meal.idMeal} />}
             <div className="like-btn">
               <GiHearts />
+            </div>
+            <div>
+            <RecipeToggleBTn id={meal.idMeal}/>
             </div>
           </div>
         ))}

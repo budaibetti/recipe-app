@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <h1 className="app-name">
-        CrimsonCuisine
+      FlavorFindr
         <span className="strawberry-icon">
           <GiStrawberry />
         </span>
