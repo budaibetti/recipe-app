@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { GiHearts } from "react-icons/gi";
 import ShowIngredients from './ShowIngredients';
 import RecipeToggleBTn from './RecipeToggleBTn';
+import LikeBtn from "./LikeBtn";
 
 function SearchMeals({ term }) {
   const [meals, setMeals] = useState([]);
   const [showRecipe, setShowRecipe] = useState(false);
+  const [favouriteMeals, setFavouriteMeals] = useState([]);
+
+  const handleLike = (recipe) => {
+    console.log("Liked recipe:", recipe);
+    setFavouriteMeals((prevFavouriteMeals => [...prevFavouriteMeals, recipe]));
+  };
   const toggleRecipe = () => {
     setShowRecipe(!showRecipe);
   };
@@ -43,9 +49,9 @@ function SearchMeals({ term }) {
           {showRecipe && <ShowIngredients id={meal.idMeal} />}
           
           <div className="like-btn">
-            <GiHearts />
-            
-          </div>
+              <LikeBtn recipe={meal} onLike={handleLike}/>
+
+            </div>
           <div>
           <div>
             <RecipeToggleBTn id={meal.idMeal}/>

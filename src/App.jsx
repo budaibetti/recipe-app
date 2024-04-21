@@ -2,11 +2,21 @@ import "./App.css";
 import SearchIcon from "./search-icon.svg";
 import RandomMeal from "./RandomMeal";
 import SearchMeals from "./SearchMeals";
+import FavouriteMeals from "./FavouriteMeals";
 import { useState } from "react";
 import { GiStrawberry } from "react-icons/gi";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [mealIds, setMealIds] = useState([]);
+  const handleLike = (meal) => {
+    if (!mealIds.includes(meal.idMeal)) {
+      setMealIds((prev) => [...prev, meal.idMeal]);
+    } 
+    console.log("In handleLike, attempted update:", meal.idMeal);
+   };
+
+   console.log("In component render, mealIds:", mealIds); 
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -20,6 +30,12 @@ function App() {
           <GiStrawberry />
         </span>
       </h1>
+      {mealIds.length > 0 && (
+        <div>
+          <h2>Favourite Recipes</h2>
+          <FavouriteMeals mealIds={mealIds} />
+        </div>
+      )}
       <div className="search">
         <input
           className="searchbar"
@@ -36,7 +52,7 @@ function App() {
       {searchTerm ? (
         <SearchMeals term={searchTerm} />
       ) : (
-        <RandomMeal />
+        <RandomMeal onLike={handleLike} />
       )}
     </div>
   );

@@ -92,6 +92,7 @@ cursor: pointer;
   padding: 0.5rem;
     width: 80%;
   text-align: center;
+  outline: none;
   
  
 }
@@ -117,22 +118,44 @@ cursor: pointer;
   height: auto;
   border-radius: 2px;
   box-shadow: 0 0 5px black;
+  margin-bottom: 30px;
+  margin-top: -20px;
 }
 
 .like-btn{
   position: relative;
-  top: -1rem;
+  top: -3.5rem;
   text-align: end;
-  font-size: 2rem;
-  color: rgb(28, 21, 34);
-  cursor: pointer;
+  font-size: 2.3rem;
+ 
+  background: transparent;
   margin-right: 30px;
-  transition: 0.5s;
+  outline: none;
+  
 }
 
-.like-btn:hover {
-  color: rgb(249, 68, 255);
+.heart-btn {
+  background: none;
+  color: rgb(28, 21, 34);
+  cursor: pointer;
+  transition: 0.5s;
+  padding: 0;
+  
+  
 }
+.heart-btn:hover {
+  color: rgb(249, 68, 255);
+  
+}
+
+.like-btn-active {
+  color: rgb(255, 2, 179);
+  background: transparent;
+  padding: 0;
+
+ 
+}
+
 
 .ingredients-title, .instructions-title {
   font-size: 1.1rem;

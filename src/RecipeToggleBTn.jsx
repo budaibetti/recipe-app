@@ -4,7 +4,7 @@ import { MdOutlineExpandMore, MdOutlineExpandLess } from "react-icons/md";
 
 const RecipeToggleBTn = ({id}) => {
   const [clicked, setClicked] = useState(false);
-  console.log('id:', id);
+  
   
   const handleClick = () => {
     setClicked(!clicked); 
