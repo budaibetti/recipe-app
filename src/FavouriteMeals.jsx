@@ -1,51 +1,77 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const FavouriteMeals = ({ mealIds }) => {
-  const [favouriteMeals, setFavouriteMeals] = useState([]);
+  const [favouriteMeals, setFavouriteMeals] = useState(() => {
+    const storedFavouriteMeals = JSON.parse(localStorage.getItem("favouriteMeals"));
+    return storedFavouriteMeals ? storedFavouriteMeals : [];
+  });
+  const [loading, setLoading] = useState(true);
 
+  // Fetch meals by IDs when component mounts or meal IDs change
   useEffect(() => {
     const fetchMealsByIds = async () => {
+      if (mealIds.length === 0) {
+        setLoading(false);
+        return;
+      }
       try {
+        setLoading(true); 
+        console.log("Fetching meals...");
+
         const fetchedMeals = await Promise.all(
           mealIds.map(async (mealId) => {
             const response = await fetch(
               `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
             );
             const data = await response.json();
-
             return data.meals ? data.meals[0] : null;
           })
         );
 
         const validMeals = fetchedMeals.filter((meal) => meal !== null);
-        setFavouriteMeals(validMeals);
+
+        if (validMeals.length > 0) {
+          setFavouriteMeals((prevMeals) => {
+            const newFavouriteMeals = [...prevMeals, ...validMeals.filter((meal) => !prevMeals.some((favMeal) => favMeal.idMeal === meal.idMeal))];
+            localStorage.setItem("favouriteMeals", JSON.stringify(newFavouriteMeals)); // Update localStorage
+            return newFavouriteMeals;
+          });
+        }
+        
       } catch (error) {
         console.error("Error fetching meals:", error);
+      } finally {
+        setLoading(false); 
       }
     };
 
-     {
-      fetchMealsByIds();
-    }
+    fetchMealsByIds();
   }, [mealIds]);
+
+  useEffect(() => {
+    console.log('Rendered favouriteMeals:', favouriteMeals); 
+  }, [favouriteMeals]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (favouriteMeals.length === 0) {
+    return <div>No favorite meals found</div>;
+  }
 
   return (
     <div className="favourite-container">
-      {favouriteMeals.length > 0 ? (
-        favouriteMeals.map((meal, index) => (
-          <div key={index}>
-            <h2>Your favourite meal</h2>
-            <img
-              className="meal-thumb"
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-            />
-            <p>{meal.strMeal}</p>
-          </div>
-        ))
-      ) : (
-        <div>No favourite meals found</div>
-      )}
+      {favouriteMeals.map((meal) => (
+        <div key={meal.idMeal}>
+          <img
+            className="meal-thumb"
+            src={meal.strMealThumb}
+            alt={meal.strMeal}
+          />
+          <p>{meal.strMeal}</p>
+        </div>
+      ))}
     </div>
   );
 };

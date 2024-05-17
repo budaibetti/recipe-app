@@ -3,23 +3,29 @@ import SearchIcon from "./search-icon.svg";
 import RandomMeal from "./RandomMeal";
 import SearchMeals from "./SearchMeals";
 import FavouriteMeals from "./FavouriteMeals";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GiStrawberry } from "react-icons/gi";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [mealIds, setMealIds] = useState([]);
+  const [mealIds, setMealIds] = useState(() => {
+    const storedMealIds = JSON.parse(localStorage.getItem("mealIds"));
+    return storedMealIds ? storedMealIds : [];
+  });
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("mealIds", JSON.stringify(mealIds));
+  }, [mealIds]);
+
   const handleLike = (meal) => {
     if (!mealIds.includes(meal.idMeal)) {
       setMealIds((prev) => [...prev, meal.idMeal]);
     } 
     console.log("In handleLike, attempted update:", meal.idMeal);
-   };
-
-   console.log("In component render, mealIds:", mealIds); 
-
-  const handleSearch = (term) => {
-    setSearchTerm(term);
   };
 
   return (
