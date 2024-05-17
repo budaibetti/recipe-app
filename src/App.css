@@ -27,7 +27,7 @@ body {
   text-shadow: 0 0 6px rgba(82, 68, 68, 0.822);
   font-style: italic;
   text-transform: none;
-  color: rgb(249, 180, 255);
+  color: rgb(233, 114, 114);;
 }
 
 .search {
@@ -36,7 +36,7 @@ body {
 }
 .searchbar {
   border-radius: 30px;
-  border: solid 0.5px rgba(245, 111, 223, 0.527);
+  border: solid 0.5px rgba(245, 111, 140, 0.527);
   min-width: 600px;
   height: 2.5rem;
   padding: 3px;
@@ -61,7 +61,7 @@ cursor: pointer;
 }
 
 .strawberry-icon {
-  color: rgb(253, 198, 198);
+  color: rgb(253, 201, 201);
   font-size: 2rem;
 }
 
@@ -71,9 +71,9 @@ cursor: pointer;
   text-transform: capitalize;
   font-family: 'Roboto', sans-serif;
   font-size: 2.7rem;
-  font-weight: 200;
+  font-weight: 500;
   font-style: italic;
-  color: rgb(249, 180, 255);
+  color: rgb(255, 93, 93);
 }
 .random-meals-container {
   display: flex;
@@ -86,7 +86,7 @@ cursor: pointer;
 }
 .meals {
   
-  background-color: rgba(246, 203, 255, 0.89);
+  background-color: rgb(250, 160, 160);
   margin-bottom: 25px;
   border-radius: 15px;
   padding: 0.5rem;
@@ -144,12 +144,12 @@ cursor: pointer;
   
 }
 .heart-btn:hover {
-  color: rgb(249, 68, 255);
+  color: rgb(255, 61, 119);
   
 }
 
 .like-btn-active {
-  color: rgb(255, 2, 179);
+  color: rgb(255, 65, 90);
   background: transparent;
   padding: 0;
 
@@ -187,4 +187,56 @@ cursor: pointer;
   text-align: justify;
   font-weight: 600;
   text-indent: 80px;
+}
+
+.favorite-recipes-title{
+  letter-spacing: 3px;
+  color:rgb(253, 150, 150)
+}
+
+.favourite-container {
+  display: flex;
+  flex-direction: row;
+  
+  flex-wrap: nowrap;
+  overflow: auto;
+  max-width: 800px;
+  max-height: 300px;
+}
+.favourite-meal-card {
+  display: inline-block;
+  background: rgb(255, 134, 134);
+  margin-right: 10px;
+  max-width: 200px;
+  border-radius: 10%;
+  flex: 0 0 auto; 
+}
+.favourite-container>div>img {
+  border-radius: 20%;
+  height: auto;
+  margin-bottom: 0;
+  margin-top: 25px;
+  margin-right: 15px;
+}
+
+.favourite-meal-name{
+  letter-spacing: 1px;
+  font-weight: 500;
+  color: rgb(36, 22, 20);
+  background: rgb(243, 222, 222);
+  width:80%;
+  padding: 5px;
+  margin-left: 5%;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px ;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.close-button{
+  position: relative;
+  left:73%;
+  top: -42%;
+  font-size: 1.6rem;
+  color: rgb(255, 250, 250);
 }

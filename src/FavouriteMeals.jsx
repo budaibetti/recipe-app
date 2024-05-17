@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { IoCloseOutline } from "react-icons/io5";
 
-const FavouriteMeals = ({ mealIds }) => {
+
+const FavouriteMeals = ({ mealIds, onRemove }) => {
   const [favouriteMeals, setFavouriteMeals] = useState(() => {
     const storedFavouriteMeals = JSON.parse(localStorage.getItem("favouriteMeals"));
     return storedFavouriteMeals ? storedFavouriteMeals : [];
@@ -12,6 +14,9 @@ const FavouriteMeals = ({ mealIds }) => {
     const fetchMealsByIds = async () => {
       if (mealIds.length === 0) {
         setLoading(false);
+        setFavouriteMeals([]);
+        localStorage.removeItem("favouriteMeals");
+
         return;
       }
       try {
@@ -52,6 +57,20 @@ const FavouriteMeals = ({ mealIds }) => {
     console.log('Rendered favouriteMeals:', favouriteMeals); 
   }, [favouriteMeals]);
 
+  //TODO: clear out LS after every item gets deleted
+  const handleRemoveClick = (mealId) => {
+    setFavouriteMeals((prevMeals) => {
+      const updatedMeals = prevMeals.filter((meal) => meal.idMeal !== mealId);
+      if (updatedMeals.length > 0) {
+        localStorage.setItem("favouriteMeals", JSON.stringify(updatedMeals));
+      } else {
+        localStorage.removeItem("favouriteMeals");
+      }
+      return updatedMeals;
+    });
+    onRemove(mealId); // Update mealIds in App component
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -63,13 +82,18 @@ const FavouriteMeals = ({ mealIds }) => {
   return (
     <div className="favourite-container">
       {favouriteMeals.map((meal) => (
-        <div key={meal.idMeal}>
+        <div className="favourite-meal-card" key={meal.idMeal}>
+          <span className="close-button" onClick={() => handleRemoveClick(meal.idMeal)}>
+          <IoCloseOutline />
+
+          </span>
+
           <img
             className="meal-thumb"
             src={meal.strMealThumb}
             alt={meal.strMeal}
           />
-          <p>{meal.strMeal}</p>
+          <p className="favourite-meal-name">{meal.strMeal}</p>
         </div>
       ))}
     </div>

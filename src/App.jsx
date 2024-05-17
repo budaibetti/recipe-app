@@ -25,7 +25,16 @@ function App() {
     if (!mealIds.includes(meal.idMeal)) {
       setMealIds((prev) => [...prev, meal.idMeal]);
     } 
-    console.log("In handleLike, attempted update:", meal.idMeal);
+    console.log("MealId update:", meal.idMeal);
+  };
+
+  const handleRemove = (mealId) => {
+    setMealIds((prev) => {
+      const updatedMealIds = prev.filter((id) => id !== mealId);
+      localStorage.setItem("mealIds", JSON.stringify(updatedMealIds));
+      return updatedMealIds;
+    });
+    console.log("In handleRemove, attempted removal:", mealId);
   };
 
   return (
@@ -38,8 +47,8 @@ function App() {
       </h1>
       {mealIds.length > 0 && (
         <div>
-          <h2>Favourite Recipes</h2>
-          <FavouriteMeals mealIds={mealIds} />
+          <h2 className="favorite-recipes-title">Favourite Recipes</h2>
+          <FavouriteMeals mealIds={mealIds} onRemove={handleRemove}  />
         </div>
       )}
       <div className="search">
