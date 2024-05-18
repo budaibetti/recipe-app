@@ -20,23 +20,26 @@ function App() {
   useEffect(() => {
     localStorage.setItem("mealIds", JSON.stringify(mealIds));
   }, [mealIds]);
+  
+  const handleRemove = (mealId) => {
+    setMealIds((prev) => {
+      const updatedMealIds = prev.filter((id) => id !== mealId);
+      localStorage.setItem("mealIds", JSON.stringify(updatedMealIds)); 
+      return updatedMealIds;
+    });
+  };
+
 
   const handleLike = (meal) => {
     if (!mealIds.includes(meal.idMeal)) {
-      setMealIds((prev) => [...prev, meal.idMeal]);
+      setMealIds((prev) => {const updatedMealIds = [...prev, meal.idMeal];
+      localStorage.setItem("mealIds", JSON.stringify(updatedMealIds));
+      return updatedMealIds;});
     } 
     console.log("MealId update:", meal.idMeal);
   };
 
-  const handleRemove = (mealId) => {
-    setMealIds((prev) => {
-      const updatedMealIds = prev.filter((id) => id !== mealId);
-      localStorage.setItem("mealIds", JSON.stringify(updatedMealIds));
-      return updatedMealIds;
-    });
-    console.log("In handleRemove, attempted removal:", mealId);
-  };
-
+  
   return (
     <div>
       <h1 className="app-name">

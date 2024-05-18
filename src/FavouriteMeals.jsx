@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-
 const FavouriteMeals = ({ mealIds, onRemove }) => {
   const [favouriteMeals, setFavouriteMeals] = useState(() => {
-    const storedFavouriteMeals = JSON.parse(localStorage.getItem("favouriteMeals"));
+    const storedFavouriteMeals = JSON.parse(
+      localStorage.getItem("favouriteMeals")
+    );
     return storedFavouriteMeals ? storedFavouriteMeals : [];
   });
   const [loading, setLoading] = useState(true);
-
-  // Fetch meals by IDs when component mounts or meal IDs change
   useEffect(() => {
     const fetchMealsByIds = async () => {
       if (mealIds.length === 0) {
@@ -20,7 +19,7 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
         return;
       }
       try {
-        setLoading(true); 
+        setLoading(true);
         console.log("Fetching meals...");
 
         const fetchedMeals = await Promise.all(
@@ -35,41 +34,59 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
 
         const validMeals = fetchedMeals.filter((meal) => meal !== null);
 
-        if (validMeals.length > 0) {
-          setFavouriteMeals((prevMeals) => {
-            const newFavouriteMeals = [...prevMeals, ...validMeals.filter((meal) => !prevMeals.some((favMeal) => favMeal.idMeal === meal.idMeal))];
-            localStorage.setItem("favouriteMeals", JSON.stringify(newFavouriteMeals)); // Update localStorage
-            return newFavouriteMeals;
-          });
-        }
-        
+        setFavouriteMeals((prevMeals) => {
+          const newFavouriteMeals = validMeals.filter(
+            (meal) =>
+              !prevMeals.some((favMeal) => favMeal.idMeal === meal.idMeal)
+          );
+          const updatedFavouriteMeals = [...prevMeals, ...newFavouriteMeals];
+          localStorage.setItem(
+            "favouriteMeals",
+            JSON.stringify(updatedFavouriteMeals)
+          ); // Update localStorage
+          return updatedFavouriteMeals;
+        });
       } catch (error) {
         console.error("Error fetching meals:", error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchMealsByIds();
   }, [mealIds]);
 
+  const [isRemoving, setIsRemoving] = useState(false);
+
   useEffect(() => {
-    console.log('Rendered favouriteMeals:', favouriteMeals); 
+    console.log("Rendered favouriteMeals:", favouriteMeals);
   }, [favouriteMeals]);
 
-  //TODO: clear out LS after every item gets deleted
   const handleRemoveClick = (mealId) => {
+    if (!mealId) return;
+
     setFavouriteMeals((prevMeals) => {
       const updatedMeals = prevMeals.filter((meal) => meal.idMeal !== mealId);
-      if (updatedMeals.length > 0) {
-        localStorage.setItem("favouriteMeals", JSON.stringify(updatedMeals));
-      } else {
-        localStorage.removeItem("favouriteMeals");
-      }
       return updatedMeals;
     });
-    onRemove(mealId); // Update mealIds in App component
+    onRemove(mealId);
+    setIsRemoving(true);
+
+    const updatedFavouriteMeals = favouriteMeals.filter(
+      (meal) => meal.idMeal !== mealId
+    );
+    localStorage.setItem(
+      "favouriteMeals",
+      JSON.stringify(updatedFavouriteMeals)
+    );
   };
+
+  useEffect(() => {
+    if (isRemoving) {
+      localStorage.setItem("favouriteMeals", JSON.stringify(favouriteMeals));
+      setIsRemoving(false);
+    }
+  }, [isRemoving, favouriteMeals]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -83,9 +100,11 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
     <div className="favourite-container">
       {favouriteMeals.map((meal) => (
         <div className="favourite-meal-card" key={meal.idMeal}>
-          <span className="close-button" onClick={() => handleRemoveClick(meal.idMeal)}>
-          <IoCloseOutline />
-
+          <span
+            className="close-button"
+            onClick={() => handleRemoveClick(meal.idMeal)}
+          >
+            <IoCloseOutline />
           </span>
 
           <img

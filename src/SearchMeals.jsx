@@ -15,7 +15,7 @@ function SearchMeals({ term }) {
   const toggleRecipe = () => {
     setShowRecipe(!showRecipe);
   };
-
+//TODO: add like button functionality here, fix layout
   useEffect(() => {
     async function fetchMealsBySearch() {
       try {
