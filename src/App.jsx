@@ -68,7 +68,7 @@ function App() {
         />
       </div>
       {searchTerm ? (
-        <SearchMeals term={searchTerm} />
+        <SearchMeals term={searchTerm} onLike={handleLike} />
       ) : (
         <RandomMeal onLike={handleLike} />
       )}

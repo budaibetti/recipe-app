@@ -11,8 +11,8 @@ const RecipeToggleBTn = ({id}) => {
   };
   return (
     <div>
-      <button onClick={ handleClick}>
-      {clicked ? <> HIDE RECIPE <MdOutlineExpandLess /> </> : <>RECIPE <MdOutlineExpandMore /> </> }
+      <button className='recipe-toggle-btn' onClick={ handleClick}>
+      {clicked ? <> HIDE RECIPE <span className='recipe-arrow'><MdOutlineExpandLess /> </span> </> : <>RECIPE <span className='recipe-arrow'><MdOutlineExpandMore /> </span></> }
     </button>
     {clicked && <ShowIngredients id={id} />}
     
