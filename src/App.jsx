@@ -1,4 +1,5 @@
-import "./App.css";
+import "./styles/App.css";
+import "./styles/FavouriteRecipe.css";
 import SearchIcon from "./search-icon.svg";
 import RandomMeal from "./RandomMeal";
 import SearchMeals from "./SearchMeals";

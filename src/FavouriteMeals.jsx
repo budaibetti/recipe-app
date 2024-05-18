@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import ShowIngredients from "./ShowIngredients";
 
-const FavouriteMeals = ({ mealIds, onRemove }) => {
+const FavouriteMeals = ({ mealIds, onRemove}) => {
   const [favouriteMeals, setFavouriteMeals] = useState(() => {
     const storedFavouriteMeals = JSON.parse(
       localStorage.getItem("favouriteMeals")
     );
     return storedFavouriteMeals ? storedFavouriteMeals : [];
   });
+
   const [loading, setLoading] = useState(true);
+  const [selectedMeal, setSelectedMeal] = useState(null)
+
   useEffect(() => {
     const fetchMealsByIds = async () => {
       if (mealIds.length === 0) {
@@ -56,6 +60,7 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
     fetchMealsByIds();
   }, [mealIds]);
 
+ 
   const [isRemoving, setIsRemoving] = useState(false);
 
   useEffect(() => {
@@ -88,6 +93,11 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
     }
   }, [isRemoving, favouriteMeals]);
 
+  const handleMealClick = (meal) => {
+    setSelectedMeal(meal);
+  };
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -96,6 +106,7 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
     return <div>No favorite meals found</div>;
   }
 
+  //TODO add close button to favoruite meal recipe
   return (
     <div className="favourite-container">
       {favouriteMeals.map((meal) => (
@@ -108,14 +119,32 @@ const FavouriteMeals = ({ mealIds, onRemove }) => {
           </span>
 
           <img
+         onClick={() => handleMealClick(meal)}
             className="meal-thumb"
             src={meal.strMealThumb}
             alt={meal.strMeal}
           />
           <p className="favourite-meal-name">{meal.strMeal}</p>
+         
+        
         </div>
       ))}
+
+      
+      <div className="favourite-meal-recipe-container">
+      {selectedMeal && (
+        <div className="favourite-meal-recipe">
+          <h2 className="fav-meal-recipe-title">{selectedMeal.strMeal}</h2>
+          <span className="favourite-meal-recipe-description">
+          <ShowIngredients id={selectedMeal.idMeal} />
+            </span>
+        </div>
+      )}
+      </div>
+       
+   
     </div>
+    
   );
 };
 

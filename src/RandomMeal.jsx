@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
-import ShowIngredients from "./ShowIngredients";
 import RecipeToggleBTn from "./RecipeToggleBTn";
 import LikeBtn from "./LikeBtn";
 
 const RandomMeal = ( {onLike}) => {
   const [randomMeals, setRandomMeals] = useState([]);
-  const [showRecipe, setShowRecipe] = useState(false);
   
-  
-  const toggleRecipe = () => {
-    setShowRecipe(!showRecipe);
-  };
 
   useEffect(() => {
     async function fetchRandomMeals() {
@@ -47,7 +41,7 @@ const RandomMeal = ( {onLike}) => {
               src={meal.strMealThumb}
               alt={meal.strMeal}
             />
-            {showRecipe && <ShowIngredients id={meal.idMeal} />}
+            
             
             <div>
               <RecipeToggleBTn id={meal.idMeal} />
