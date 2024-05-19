@@ -1,5 +1,6 @@
 import "./styles/App.css";
 import "./styles/FavouriteRecipe.css";
+import "./styles/MatchCard.css";
 import SearchIcon from "./search-icon.svg";
 import RandomMeal from "./RandomMeal";
 import SearchMeals from "./SearchMeals";

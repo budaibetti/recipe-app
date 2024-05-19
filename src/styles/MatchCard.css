@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.match-card-container{
+  display: block;
+  position: absolute;
+  z-index: 4;
+  background: rgb(255, 234, 234);
+  color: black;
+  min-height: 600px;
+  left: 25%;
+  transition: top 0.35s ease-in-out;
+  border-radius: 5%;
+}
+.meal-match-thumb{
+  width: 40%;
+  border-radius: 50%;
+}
+.match-card{
+  max-width: 800px;
+}
+
+.match-title {
+  font-family:"Poppins", sans-serif;
+  text-transform:uppercase ;
+  font-weight: 800;
+  font-size: 3.5rem;
+  color: rgb(44, 155, 44);
+}
+.match-made {
+  margin-top: -30px;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.meal-match-name {
+  display: block;
+  font-family:"Poppins", sans-serif;
+  font-size: 1.3rem;
+  color: rgb(27, 129, 27);
+  text-transform:uppercase ;
+  font-weight: 800;
+  letter-spacing: 2px;
+  
+}
+
+.match-text {
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 20px;
+
+}

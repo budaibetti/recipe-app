@@ -96,6 +96,9 @@ const FavouriteMeals = ({ mealIds, onRemove}) => {
   const handleMealClick = (meal) => {
     setSelectedMeal(meal);
   };
+  const handleClose = ()=> {
+    setSelectedMeal(null);
+  }
 
 
   if (loading) {
@@ -106,7 +109,6 @@ const FavouriteMeals = ({ mealIds, onRemove}) => {
     return <div>No favorite meals found</div>;
   }
 
-  //TODO add close button to favoruite meal recipe
   return (
     <div className="favourite-container">
       {favouriteMeals.map((meal) => (
@@ -120,7 +122,7 @@ const FavouriteMeals = ({ mealIds, onRemove}) => {
 
           <img
          onClick={() => handleMealClick(meal)}
-            className="meal-thumb"
+            className="meal-thumb favourite-meal-thumb"
             src={meal.strMealThumb}
             alt={meal.strMeal}
           />
@@ -134,6 +136,7 @@ const FavouriteMeals = ({ mealIds, onRemove}) => {
       <div className="favourite-meal-recipe-container">
       {selectedMeal && (
         <div className="favourite-meal-recipe">
+          <span onClick={handleClose} className="fav-recipe-close-btn"><IoCloseOutline/></span>
           <h2 className="fav-meal-recipe-title">{selectedMeal.strMeal}</h2>
           <span className="favourite-meal-recipe-description">
           <ShowIngredients id={selectedMeal.idMeal} />
